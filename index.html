@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1120">
+    <title>StudyFlow — Seu espaço confortavel,.,</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="./script.js" defer></script>
+
+    <style>
+        .ilustracao-login {
+            width: 100%;
+            height: 175px;
+            overflow: hidden;
+            border-radius: 16px;
+            margin: 20px 0;
+            background: #101e38;
+        }
+
+        .imagem-login {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 55%;
+        }
+
+        .banner-ilustracao {
+            overflow: hidden;
+            border-radius: 16px;
+        }
+
+        .imagem-banner {
+            display: block;
+            width: 100%;
+            height: 100%;
+            min-height: 180px;
+            max-height: 260px;
+            object-fit: cover;
+        }
+
+        .imagem-resumo {
+            display: block;
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .imagem-painel {
+            width: 100px;
+            height: 76px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .ilustracao-login {
+                height: 140px;
+            }
+
+            .imagem-banner {
+                min-height: 130px;
+                max-height: 180px;
+            }
+
+            .imagem-resumo {
+                width: 58px;
+                height: 58px;
+            }
+
+            .imagem-painel {
+                width: 75px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mensagem" class="mensagem" role="status" aria-live="polite"></div>
+
+    <!-- LOGIN E CADASTRO -->
+    <main id="telaAutenticacao" class="tela-autenticacao">
+        <section class="cartao-autenticacao">
+
+            <div class="marca">
+                <div class="marca-icone">✦</div>
+                <span>StudyFlow</span>
+            </div>
+
+            <div class="ilustracao-login">
+                <img
+                    src="https://images.pexels.com/photos/9258001/pexels-photo-9258001.jpeg?auto=compress&dpr=1&h=750&w=1260"
+                    alt="Livros e materiais escolares"
+                    class="imagem-login">
+            </div>
+
+            <div class="titulo-autenticacao">
+                <p class="etiqueta">SEU ESPAÇO INCRÍVEL</p>
+                <h1 id="tituloAutenticacao">Bem-vindo de volta!</h1>
+                <p id="descricaoAutenticacao">
+                    Entre na sua conta e volte pra escola.
+                </p>
+            </div>
+
+            <div class="abas-autenticacao">
+                <button type="button" id="abaLogin" class="aba ativa">
+                    Entrar
+                </button>
+                <button type="button" id="abaCadastro" class="aba">
+                    Criar conta
+                </button>
+            </div>
+
+            <form id="formLogin" class="form-autenticacao">
+                <label for="emailLogin">E-mail</label>
+                <input
+                    id="emailLogin"
+                    name="email"
+                    type="email"
+                    placeholder="voce@exemplo.com"
+                    autocomplete="email"
+                    required>
+
+                <label for="senhaLogin">Senha</label>
+                <input
+                    id="senhaLogin"
+                    name="senha"
+                    type="password"
+                    placeholder="Sua senha"
+                    autocomplete="current-password"
+                    minlength="6"
+                    required>
+
+                <button type="submit" id="botaoLogin" class="botao-principal">
+                    Entrar na minha conta
+                </button>
+            </form>
+
+            <form id="formCadastro" class="form-autenticacao oculto">
+                <label for="nomeCadastro">Como podemos te chamar?</label>
+                <input
+                    id="nomeCadastro"
+                    name="nome"
+                    type="text"
+                    placeholder="Seu nome"
+                    autocomplete="name"
+                    maxlength="60"
+                    required>
+
+                <label for="emailCadastro">E-mail</label>
+                <input
+                    id="emailCadastro"
+                    name="email"
+                    type="email"
+                    placeholder="voce@exemplo.com"
+                    autocomplete="email"
+                    required>
+
+                <label for="senhaCadastro">Criar senha</label>
+                <input
+                    id="senhaCadastro"
+                    name="senha"
+                    type="password"
+                    placeholder="Pelo menos 6 caracteres"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required>
+
+                <button type="submit" id="botaoCadastro" class="botao-principal">
+                    Criar minha conta
+                </button>
+            </form>
+
+            <p class="privacidade">
+                ✦ Seu espaço de estudos, organizado por nós.
+            </p>
+        </section>
+
+        <p class="rodape-autenticacao">Codes by João· 2026</p>
+    </main>
+
+    <!-- PAINEL PRINCIPAL -->
+    <div id="painelPrincipal" class="app-layout oculto">
+
+        <aside class="sidebar">
+            <a href="#" class="logo" data-destino="inicio">
+                <span class="logo-icone">✦</span>
+                <span>StudyFlow</span>
+            </a>
+
+            <p class="menu-titulo">MENU PRINCIPAL</p>
+
+            <nav class="menu">
+                <button type="button" class="menu-item ativo" data-destino="inicio">
+                    <span>⌂</span> Início
+                </button>
+
+                <button type="button" class="menu-item" data-destino="materias">
+                    <span>▤</span> Minhas matérias
+                </button>
+
+                <button type="button" class="menu-item" data-destino="notas">
+                    <span>▧</span> Minhas notas
+                </button>
+
+                <button type="button" class="menu-item" data-destino="calendario">
+                    <span>▦</span> Calendário
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <p>Seu espaço confortavel.</p>
+                <span>Gleisi,Iara,Leiza,Thiriza e Joao· 2026</span>
+            </div>
+        </aside>
+
+        <main class="conteudo" id="inicio">
+
+            <header class="topbar">
+                <div>
+                    <p class="texto-suave">SEU ORGANIZADOR ESCOLAR</p>
+                    <h1>Olá, <span id="nomeUsuario">estudante</span>! 👋</h1>
+                </div>
+
+                <button type="button" id="botaoSair" class="botao-secundario">
+                    Sair da conta
+                </button>
+            </header>
+
+            <!-- BANNER -->
+            <section class="banner">
+                <div class="banner-texto">
+                    <span class="etiqueta">UM PASSO DE CADA VEZ</span>
+                    <h2>Seus estudos, no seu ritmo.</h2>
+                    <p>
+                        Organize suas matérias, acompanhe suas notas
+                        e desfrute do nosso site!
+                    </p>
+
+                    <button
+                        type="button"
+                        class="botao-principal"
+                        data-destino="materias">
+                        Organizar meus estudos →
+                    </button>
+                </div>
+
+                <div class="banner-ilustracao">
+                    <img
+                       src="https://images.pexels.com/photos/6550408/pexels-photo-6550408.jpeg?auto=compress&dpr=1&h=750&w=1260"
+                        alt="Caderno e materiais de estudo"
+                        class="imagem-banner">
+                </div>
+            </section>
+
+            <!-- CARTÕES DE RESUMO -->
+            <section class="resumo">
+
+                <article class="cartao-resumo">
+                    <img
+src="https://images.pexels.com/photos/33676036/pexels-photo-33676036/free-photo-of-cozy-vintage-desk-with-lamp-and-books.jpeg?auto=compress&dpr=1&h=750&w=1260"
+                        alt="Livros"
+                        class="imagem-resumo">
+
+                    <p>Matérias cadastradas</p>
+                    <strong id="totalMaterias">0</strong>
+
+                    <button type="button" data-destino="materias">
+                        Ver matérias →
+                    </button>
+                </article>
+
+                <article class="cartao-resumo">
+                    <img
+            
+                  src="https://images.pexels.com/photos/30146748/pexels-photo-30146748/free-photo-of-open-book-and-laptop-on-wooden-desk.jpeg?auto=compress&dpr=1&h=750&w=1260"
+                        alt="Caderno de anotações"
+                        class="imagem-resumo">
+
+                    <p>Notas registradas</p>
+                    <strong id="totalNotas">0</strong>
+
+                    <button type="button" data-destino="notas">
+                        Ver notas →
+                    </button>
+                </article>
+
+                <article class="cartao-resumo">
+                    <img
+                        src="https://images.pexels.com/photos/9572568/pexels-photo-9572568.jpeg?auto=compress&dpr=1&h=750&w=1260"
+                        
+                        alt="Materiais de estudo"
+                        class="imagem-resumo">
+
+                    <p>Média geral</p>
+                    <strong id="mediaGeral">—</strong>
+
+                    <span class="texto-suave">Das notas cadastradas</span>
+                </article>
+
+            </section>
+
+            <!-- MATÉRIAS -->
+            <section id="secaoMaterias" class="painel">
+                <div class="titulo-painel">
+                    <div>
+                        <p class="etiqueta">SUA ORGANIZAÇÃO</p>
+                        <h2>Minhas matérias</h2>
+                        <p class="texto-suave">
+                            Cadastre suas materias aqui
+                        </p>
+                    </div>
+
+                    <img
+                       src="https://images.pexels.com/photos/11340666/pexels-photo-11340666.jpeg"
+                        alt="Livros empilhados"
+                        class="imagem-painel">
+                </div>
+
+                <form id="formMateria" class="form-linha">
+                    <input
+                        id="nomeMateria"
+                        type="text"
+                        placeholder="Ex.: Matemática"
+                        maxlength="60"
+                        required>
+
+                    <button id="botaoAdicionar" type="submit" class="botao-principal">
+                        + Adicionar
+                    </button>
+                </form>
+
+                <p id="estadoMaterias" class="estado-vazio">
+                    Suas matérias aparecerão aqui.
+                </p>
+
+                <ul id="listaMaterias" class="lista"></ul>
+
+                <button type="button" id="botaoExcluir" class="botao-secundario">
+                    Excluir matéria selecionada
+                </button>
+            </section>
+
+            <!-- NOTAS -->
+            <section id="areaNotas" class="painel">
+                <div class="titulo-painel">
+                    <div>
+                        <p class="etiqueta">te acompanhando:D</p>
+                        <h2>Minhas notas</h2>
+                        <p class="texto-suave">
+                            Registre suas avaliações e acompanhe suas médias.
+                        </p>
+                    </div>
+
+                    <img
+                        src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=240&q=80"
+                        alt="Caderno de anotações"
+                        class="imagem-painel">
+                </div>
+
+                <form id="formNota" class="form-linha form-nota">
+                    <select id="nomeNota" required>
+                        <option value="">Selecione uma matéria</option>
+                    </select>
+
+                    <input
+                        id="valorNota"
+                        type="number"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        placeholder="Nota (0 a 10)"
+                        required>
+
+                    <button id="botaoSalvarNota" type="submit" class="botao-principal">
+                        Salvar nota
+                    </button>
+                </form>
+
+                <p id="estadoNotas" class="estado-vazio">
+                    Suas notas aqui ne
+                </p>
+
+                <ul id="listaNotas" class="lista"></ul>
+            </section>
+
+            <!-- CALENDÁRIO DE AVALIAÇÕES -->
+            <section id="secaoCalendario" class="painel calendario-painel">
+                <div class="titulo-painel">
+                    <div>
+                        <p class="etiqueta">SEU PLANEJAMENTO</p>
+                        <h2>Calendário</h2>
+                        <p class="texto-suave">Organize provas, apresentações e outros compromissos.</p>
+                    </div>
+                    <div class="calendario-navegacao">
+                        <button type="button" id="mesAnterior" class="botao-secundario" aria-label="Mês anterior">‹</button>
+                        <strong id="mesAtual"></strong>
+                        <button type="button" id="mesSeguinte" class="botao-secundario" aria-label="Próximo mês">›</button>
+                    </div>
+                </div>
+
+                <div class="calendario-grade" aria-label="Calendário mensal">
+                    <div class="calendario-cabecalho">Seg</div><div class="calendario-cabecalho">Ter</div>
+                    <div class="calendario-cabecalho">Qua</div><div class="calendario-cabecalho">Qui</div>
+                    <div class="calendario-cabecalho">Sex</div><div class="calendario-cabecalho">Sáb</div>
+                    <div class="calendario-cabecalho">Dom</div>
+                    <div id="diasCalendario" class="calendario-dias"></div>
+                </div>
+
+                <div class="eventos-layout">
+                    <form id="formEvento" class="form-evento">
+                        <h3>Adicionar compromisso</h3>
+                        <label for="tituloEvento">O que você tem?</label>
+                        <input id="tituloEvento" type="text" maxlength="90" placeholder="Ex.: Prova de Algo" required>
+                        <label for="tipoEvento">Tipo</label>
+                        <select id="tipoEvento" required>
+                            <option value="Prova">Prova</option>
+                            <option value="Apresentação">Apresentação</option>
+                            <option value="Trabalho">Trabalho</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                        <label for="dataEvento">Data</label>
+                       <input id="dataEvento" type="date" lang="pt-BR" required>
+                        <label for="horaEvento">Horário</label>
+                        <input id="horaEvento" type="time" value="08:00" required>
+                        <label for="materiaEvento">Matéria (opcional)</label>
+                        <input id="materiaEvento" type="text" maxlength="60" placeholder="Ex.: Banco de Dados">
+                        <button type="submit" class="botao-principal">+ Salvar no calendário</button>
+                    </form>
+
+                    <div class="lista-eventos">
+                        <h3>Próximos compromissos</h3>
+                        <p id="estadoEventos" class="estado-vazio">Seus compromissos aparecerão aqui:D</p>
+                        <ul id="listaEventos" class="lista"></ul>
+                    </div>
+                </div>
+            </section>
+            <footer class="rodape">
+                Feito para apoiar sua jornada no Alberto
+            </footer>
+
+        </main>
+        <button type="button" id="contadorEvento" class="contador-evento oculto" aria-label="Contagem regressiva para o próximo compromisso">
+            <span class="contador-icone">⏳</span>
+            <span class="contador-conteudo">
+                <span id="contadorTitulo" class="contador-titulo"></span>
+                <span id="contadorTempo" class="contador-tempo"></span>
+            </span>
+            <span class="contador-legenda">até o próximo compromisso!</span>
+        </button>
+    </div>
+</body>
+</html>
